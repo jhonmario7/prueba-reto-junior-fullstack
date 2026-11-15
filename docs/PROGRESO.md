@@ -4,7 +4,7 @@
 - Sprint actual: S1 cerrado, siguiente S2 (API base), sáb 14 nov
 - Último ticket completado: S1-T5 (excepciones)
 - Siguiente ticket: S2-T1 proyecto con Spring Initializr (Web + Validation)
-- Riesgos / bloqueos: ninguno. Cuidar que S0 no se coma horas de S4 y S5
+- Riesgos / bloqueos: saturación al cierre del sáb 14 (4 h de estudio, muchos conceptos nuevos). Dom 15: empezar con repaso corto (Map clave/valor, Optional, RuntimeException vs Exception) y avanzar a S2-T1 sin prisa. Cuidar horas para S4 y S5
 - Días para la entrega (mar 17, 12:00): 3 (hoy sáb 14 nov)
 
 ## Horas disponibles
