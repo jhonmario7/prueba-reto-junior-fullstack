@@ -5,3 +5,4 @@ target/
 .env
 *.pdf
 CLAUDE.md
+sandbox/
