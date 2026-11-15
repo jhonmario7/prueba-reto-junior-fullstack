@@ -1,9 +1,9 @@
 # Progreso — Kata Ciclo de Vida
 
 ## Estado actual
-- Sprint actual: S1 (Java exprés), inicio sáb 14 nov
-- Último ticket completado: S0 completo (T1 a T5)
-- Siguiente ticket: S1-T1 tipos y variables en Java
+- Sprint actual: S1 cerrado, siguiente S2 (API base), sáb 14 nov
+- Último ticket completado: S1-T5 (excepciones)
+- Siguiente ticket: S2-T1 proyecto con Spring Initializr (Web + Validation)
 - Riesgos / bloqueos: ninguno. Cuidar que S0 no se coma horas de S4 y S5
 - Días para la entrega (mar 17, 12:00): 3 (hoy sáb 14 nov)
 
@@ -32,7 +32,12 @@
 - [x] S0-T3 Postman listo
 - [x] S0-T4 Repo GitHub + git init + .gitignore + primer push (commit 9280cc2)
 - [x] S0-T5 Verificado: java, git y docker responden bien
-- [ ] S1-T1 Tipos y variables en Java
+- [x] S1-T1 Tipos y variables (Java es tipado y estricto; `7 / 2` = 3 por división entera; sin `undefined`, variables locales deben inicializarse)
+- [x] S1-T2 Clases y `record` (inmutable, sin setters, constructor con todos los campos, `toString` automático)
+- [x] S1-T3 Colecciones: `List<Customer>`, `Map<String, Customer>` (clave = email, valor = Customer), `get` devuelve null si no existe
+- [x] S1-T4 `Optional` (`ofNullable`, `isPresent`, `map`, `orElse`)
+- [x] S1-T5 Excepciones: `CustomerNotFoundException extends RuntimeException`, `orElseThrow`, lectura de stack trace
+- [ ] S2-T1 Proyecto Spring Initializr
 
 ## Decisiones técnicas (y por qué)
 - CLAUDE.md fuera del repo (`.gitignore`): contiene datos personales y el repo puede ser público.
@@ -51,6 +56,15 @@
 - Untracked / sin rastrear: archivo que Git todavía no conoce.
 - Staged / en preparación: archivo que ya hiciste `git add` y entrará en el próximo commit.
 - `git rm --cached`: dejar de rastrear un archivo sin borrarlo del disco.
+- Primitive / primitivo: tipo simple (`int`, `boolean`), guarda el valor directo, sin métodos ni null.
+- Record / record: clase de datos inmutable; genera constructor, lectores, toString, equals y hashCode.
+- Getter / Setter: método para leer / cambiar un campo; un record no tiene setters.
+- Generics / genéricos: el `<Customer>` de `List<Customer>`; le dice al compilador qué tipo guarda.
+- Integer division / división entera: `int / int` descarta decimales.
+- Optional / Optional: envoltorio que dice "puede no haber valor"; evita el NullPointerException.
+- Checked vs unchecked: excepciones que el compilador obliga a manejar (`Exception`) o no (`RuntimeException`).
+- Stack trace / traza de pila: lista de dónde falló; leer la primera línea (qué) y la primera con tu paquete (dónde).
+- Thread-safe / seguro para hilos: estructura que aguanta varios hilos a la vez; `ArrayList` y `HashMap` no lo son.
 
 ## Diario de aprendizaje
 ### Sesión 1 — 2026-11-13
@@ -63,4 +77,11 @@
 - Aprendí: el nombre del archivo debe coincidir con la clase pública (`Hola.java`); clases en PascalCase y paquetes en minúscula; `.gitignore` solo afecta archivos aún no rastreados (para soltar uno ya subido: `git rm -r --cached`); `git add .` agrega todo, mejor revisar con `git diff --staged`.
 - Me costó: recordar qué hace JAVA_HOME y qué es una variable de entorno; confundí los comandos de Maven con los de javac.
 - Lo resolví así: correcciones guiadas; el comando que recrea `target/` y las dependencias es `.\mvnw.cmd clean package`.
-- Pregunta que aún tengo: (al cierre) ¿es Java tipado como TypeScript? (se aborda en S1-T1)
+- Pregunta que aún tengo: (resuelta) Java sí es tipado, más estricto que TS.
+
+### Sesión 2 (cont.) — S1 Java exprés, 2026-11-14
+- Aprendí: tipos, record, List/Map, Optional y excepciones propias; que las instrucciones solo van dentro de métodos; que `get` de un Map devuelve null en silencio y por eso existe Optional; leer un stack trace.
+- Me costó: confundir clave y valor del Map; poner código suelto dentro de la clase sin método; el package al mover archivos.
+- Lo resolví así: separé la práctica en `sandbox/` (ignorada en git) con un archivo por tema.
+- Pendiente de repaso: por qué la excepción extiende RuntimeException (probar `extends Exception` y ver el error del compilador).
+- Pregunta que aún tengo: ninguna registrada.
