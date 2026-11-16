@@ -1,5 +1,7 @@
 package com.example.customers.controller;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class CustomerController {
 
     //método para POST que reciba un Customer y devuelva 201 Created
     @PostMapping 
-    public ResponseEntity<Customer> crear(@RequestBody Customer c){
+    public ResponseEntity<Customer> crear(@RequestBody @Valid Customer c){
         Customer creado = service.crear(c);
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
@@ -33,4 +35,8 @@ public class CustomerController {
         return service.listar();
     }
     //--
+
+
+
+
 }
