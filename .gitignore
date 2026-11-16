@@ -40,3 +40,4 @@ target/
 *.pdf
 CLAUDE.md
 sandbox/
+.postman/resources.yaml

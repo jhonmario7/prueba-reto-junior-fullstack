@@ -1,0 +1,6 @@
+$kind: http-request
+name: /api/customers
+description: ""
+url: http://localhost:8080/api/customers
+method: GET
+order: 1000
