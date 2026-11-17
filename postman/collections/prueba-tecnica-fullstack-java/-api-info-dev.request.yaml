@@ -1,0 +1,6 @@
+$kind: http-request
+name: /api/info-dev
+description: ""
+url: http://localhost:8080/api/info
+method: GET
+order: 3000

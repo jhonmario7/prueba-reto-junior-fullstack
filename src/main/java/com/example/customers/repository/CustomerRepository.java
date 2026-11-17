@@ -14,6 +14,8 @@ public class CustomerRepository {
     private final ConcurrentHashMap<String, Customer> datos = new ConcurrentHashMap<>();
 
     public Customer guardar(Customer c) {
+        // putIfAbsent: "guardar solo si no existe" en un solo paso, para que dos 
+        // POST simultáneos no dejen pasar el duplicado
         Customer previo = datos.putIfAbsent(c.email(), c);
         if (previo != null){
             throw new CustomerAlreadyExistsException(c.email());
