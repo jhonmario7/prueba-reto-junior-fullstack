@@ -9,6 +9,32 @@ ejecutarse en dos ambientes, dev y prod, con el mismo jar.
 
 JDK 21 (comprobar con `java -version`)
 
+Si no lo tienes, en Windows se instala con:
+
+```bash
+winget install EclipseAdoptium.Temurin.21.JDK
+```
+
+Si `java -version` sigue sin reconocerse (el instalador puede no agregar `java` al PATH), agrégalo a mano. Ajusta la ruta a tu versión instalada:
+
+Solo para la terminal actual (PowerShell):
+
+```bash
+$env:Path += ";C:\Program Files\Eclipse Adoptium\jdk-21.0.13.9-hotspot\bin"
+```
+
+De forma permanente (PowerShell, sin admin):
+
+```bash
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path","User") + ";C:\Program Files\Eclipse Adoptium\jdk-21.0.13.9-hotspot\bin", "User")
+```
+
+Luego cierra por completo el IDE o la terminal (VS Code, Cursor, IntelliJ, etc.) y ábrelo de nuevo: heredan el PATH con el que arrancaron. Comprueba con `java -version`, debe mostrar `21.x`.
+
+En Linux o Mac puedes descargarlo desde https://adoptium.net
+
+Extensiones del IDE: no son necesarias. Solo se usa el JDK y la terminal. (Opcional en VS Code: "Extension Pack for Java".)
+
 ## Build
 
 ```bash
