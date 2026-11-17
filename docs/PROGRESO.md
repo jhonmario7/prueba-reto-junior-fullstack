@@ -1,9 +1,10 @@
 # Progreso — Kata Ciclo de Vida
 
 ## Estado actual
-- Sprint actual: S1 cerrado, siguiente S2 (API base), sáb 14 nov
-- Último ticket completado: S1-T5 (excepciones)
-- Siguiente ticket: S2-T1 proyecto con Spring Initializr (Web + Validation)
+- Sprint actual: S0 a S5 completos (lunes 16 nov, noche). Entregable mínimo funcionando y en GitHub
+- Último ticket completado: README + clon limpio verificado
+- Siguiente ticket: S11 guion de demo (7 min); plus opcionales: S6 tests, S7 Docker
+- Verificado: clon limpio desde GitHub, `mvnw clean package` OK, dev (8080) y prod (9090) a la vez, POST 201, duplicado 409, GET 200
 - Riesgos / bloqueos: saturación al cierre del sáb 14 (4 h de estudio, muchos conceptos nuevos). Dom 15: empezar con repaso corto (Map clave/valor, Optional, RuntimeException vs Exception) y avanzar a S2-T1 sin prisa. Cuidar horas para S4 y S5
 - Días para la entrega (mar 17, 12:00): 3 (hoy sáb 14 nov)
 
@@ -37,9 +38,20 @@
 - [x] S1-T3 Colecciones: `List<Customer>`, `Map<String, Customer>` (clave = email, valor = Customer), `get` devuelve null si no existe
 - [x] S1-T4 `Optional` (`ofNullable`, `isPresent`, `map`, `orElse`)
 - [x] S1-T5 Excepciones: `CustomerNotFoundException extends RuntimeException`, `orElseThrow`, lectura de stack trace
-- [ ] S2-T1 Proyecto Spring Initializr
+- [x] S2 API base: Spring Initializr (Boot 4.1.2, Java 21, Maven, Jar), capas controller/service/repository/model, repositorio en memoria con ConcurrentHashMap, POST 201 y GET
+- [x] S3 Calidad: @Valid con NotBlank/Email/Min/Max, @RestControllerAdvice (400 con errores por campo, 409 por email duplicado con putIfAbsent)
+- [x] S4 Ambientes: application.properties + -dev/-prod, StartupLogger (ApplicationReadyEvent), GET /api/info, precedencia (argumento > archivo)
+- [x] S5 Build y run: finalName=app, un solo app.jar con --spring.profiles.active, dev y prod simultáneos, README
+- [ ] S6 Tests (opcional)
+- [ ] S7 Docker (opcional)
+- [ ] S11 Guion de demo
 
 ## Decisiones técnicas (y por qué)
+- Insight central: build once, deploy many. El mismo app.jar cambia según el perfil que se le pasa al ARRANCAR, no al compilar (a diferencia de fileReplacements en Angular).
+- Precedencia: argumentos de línea de comandos > variables de entorno > application-{perfil}.properties > application.properties.
+- Repositorio con ConcurrentHashMap y putIfAbsent: seguro entre hilos y atómico para detectar duplicados. Trade-off: datos volátiles y no sirve con varias instancias.
+- Validación en el controlador (@Valid), reglas de negocio (duplicado) en el repositorio, errores centralizados en un @RestControllerAdvice.
+- Caso conocido sin resolver: JSON sin `edad` da 400 genérico (falla al leer el cuerpo, antes de @Valid).
 - CLAUDE.md fuera del repo (`.gitignore`): contiene datos personales y el repo puede ser público.
 - PDFs (CV y enunciado) fuera del repo por la misma razón.
 

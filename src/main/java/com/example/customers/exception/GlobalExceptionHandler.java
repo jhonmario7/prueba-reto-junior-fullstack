@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import org.springframework.validation.FieldError;
 
@@ -33,6 +34,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleDuplicado(CustomerAlreadyExistsException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Map.of("status", 409, "error", ex.getMessage()));
+    }
+
+    @ExceptionHandler (HttpMessageNotReadableException.class)
+    public ResponseEntity<Map<String, Object>>
+    heandleJsonInvealido(HttpMessageNotReadableException ex){
+        return ResponseEntity.badRequest()
+                .body(Map.of("status", 400, "error", "Json inválido o con campos faltantes."));
     }
 
 }
