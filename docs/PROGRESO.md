@@ -1,9 +1,10 @@
 # Progreso — Kata Ciclo de Vida
 
 ## Estado actual
-- Sprint actual: S0 a S5 completos (lunes 16 nov, noche). Entregable mínimo funcionando y en GitHub
-- Último ticket completado: README + clon limpio verificado
-- Siguiente ticket: S11 guion de demo (7 min); plus opcionales: S6 tests, S7 Docker
+- Sprint actual: post-entrega (martes 17 nov). La prueba YA fue enviada (sin tests ni Docker). Presentación: miércoles 18 nov, 10:00-12:00
+- Último ticket completado: S5 + README + clon limpio verificado en la PC de la empresa
+- Plan hoy (~4 h, en ramas aparte para no tocar lo entregado en main): S7 Docker (feat/docker) -> S6 tests (feat/tests) -> borrador S11 guion. Mañana: ensayo cronometrado + defensa
+- Repaso 17 nov: perfil inexistente = sin error, usa solo application.properties + defaults (NO es "null"); ConcurrentHashMap/putIfAbsent = no recordó el porqué (pendiente reforzar); build once deploy many = lo tiene en esencia
 - Verificado: clon limpio desde GitHub, `mvnw clean package` OK, dev (8080) y prod (9090) a la vez, POST 201, duplicado 409, GET 200
 - Riesgos / bloqueos: saturación al cierre del sáb 14 (4 h de estudio, muchos conceptos nuevos). Dom 15: empezar con repaso corto (Map clave/valor, Optional, RuntimeException vs Exception) y avanzar a S2-T1 sin prisa. Cuidar horas para S4 y S5
 - Días para la entrega (mar 17, 12:00): 3 (hoy sáb 14 nov)
@@ -42,8 +43,8 @@
 - [x] S3 Calidad: @Valid con NotBlank/Email/Min/Max, @RestControllerAdvice (400 con errores por campo, 409 por email duplicado con putIfAbsent)
 - [x] S4 Ambientes: application.properties + -dev/-prod, StartupLogger (ApplicationReadyEvent), GET /api/info, precedencia (argumento > archivo)
 - [x] S5 Build y run: finalName=app, un solo app.jar con --spring.profiles.active, dev y prod simultáneos, README
-- [ ] S6 Tests (opcional)
-- [ ] S7 Docker (opcional)
+- [ ] S6 Tests (opcional) - rama feat/tests, desde main
+- [x] S7 Docker (rama feat/docker, sin mergear a main): Dockerfile multi-stage (JDK compila, JRE ejecuta), .dockerignore (contexto de 21.64 MB a 2.81 kB), probado con SPRING_PROFILES_ACTIVE=prod en 9090. Aprendido: -p solo conecta puertos, el perfil configura la app; capas y CACHED (por contenido); sin perfil la app queda en 8080 dentro del contenedor (ERR_EMPTY_RESPONSE)
 - [ ] S11 Guion de demo
 
 ## Decisiones técnicas (y por qué)
@@ -51,7 +52,7 @@
 - Precedencia: argumentos de línea de comandos > variables de entorno > application-{perfil}.properties > application.properties.
 - Repositorio con ConcurrentHashMap y putIfAbsent: seguro entre hilos y atómico para detectar duplicados. Trade-off: datos volátiles y no sirve con varias instancias.
 - Validación en el controlador (@Valid), reglas de negocio (duplicado) en el repositorio, errores centralizados en un @RestControllerAdvice.
-- Caso conocido sin resolver: JSON sin `edad` da 400 genérico (falla al leer el cuerpo, antes de @Valid).
+- JSON ilegible/sin `edad` falla al leer el cuerpo, antes de @Valid: resuelto con un 400 claro (commit 826890f).
 - CLAUDE.md fuera del repo (`.gitignore`): contiene datos personales y el repo puede ser público.
 - PDFs (CV y enunciado) fuera del repo por la misma razón.
 
